@@ -22,6 +22,10 @@
     <h1>{{ tama.name }}</h1>
     <h2>A {{ tama.age }} year old tamagotchi</h2>
     <p>{{ tama.description }}</p>
+    <div class="tama-actions">
+      <a href="{% url 'tamas_update' tama.id %}" class="btn warn">Edit</a>
+      <a href="{% url 'tamas_delete' tama.id %}" class="btn danger">Delete</a>
+    </div>
   </div>
 </section>
 
