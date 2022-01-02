@@ -19,10 +19,15 @@ def tamas_index(request):
 
 def tamas_detail(request, tama_id):
   tama = Tama.objects.get(id=tama_id)
+  toys_tama_doesnt_have = Toy.objects.exclude(id__in = tama.toys.all().values_list('id'))
   feeding_form = FeedingForm()
   return render(request, 'tamas/detail.html', {
-    'tama': tama, 'feeding_form': feeding_form
+    'tama': tama, 'feeding_form': feeding_form, 'toys': toys_tama_doesnt_have
   })
+  
+def assoc_toy(request, tama_id, toy_id):
+  Tama.objects.get(id=tama_id).toys.add(toy_id)
+  return redirect('tamas_detail', tama_id=tama_id)
 
 def add_feeding(request, tama_id):
   form = FeedingForm(request.POST)
@@ -34,7 +39,7 @@ def add_feeding(request, tama_id):
 
 class TamaCreate(CreateView):
   model = Tama
-  fields = '__all__'
+  fields = ['name', 'description', 'age']
   success_url = '/tamas/'
   
 class TamaUpdate(UpdateView):
