@@ -9,4 +9,5 @@ urlpatterns = [
   path('tamas/create/', views.TamaCreate.as_view(), name='tamas_create'),
   path('tamas/<int:pk>/update/', views.TamaUpdate.as_view(), name='tamas_update'),
   path('tamas/<int:pk>/delete/', views.TamaDelete.as_view(), name='tamas_delete'),
+  path('tamas/<int:tama_id>/add_feeding/', views.add_feeding, name='add_feeding'),
 ]

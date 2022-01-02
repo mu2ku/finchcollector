@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Tama
 from django.contrib import admin
+from .forms import FeedingForm
 
 admin.site.register(Tama)
 
@@ -17,7 +18,18 @@ def tamas_index(request):
 
 def tamas_detail(request, tama_id):
   tama = Tama.objects.get(id=tama_id)
-  return render(request, 'tamas/detail.html', { 'tama': tama })
+  feeding_form = FeedingForm()
+  return render(request, 'tamas/detail.html', {
+    'tama': tama, 'feeding_form': feeding_form
+  })
+
+def add_feeding(request, tama_id):
+  form = FeedingForm(request.POST)
+  if form.is_valid():
+    new_feeding = form.save(commit=False)
+    new_feeding.tama_id = tama_id
+    new_feeding.save()
+  return redirect('tamas_detail', tama_id=tama_id)
 
 class TamaCreate(CreateView):
   model = Tama
