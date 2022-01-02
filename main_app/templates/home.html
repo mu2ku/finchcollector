@@ -9,12 +9,11 @@
 
 <section class="logo-container">
   <div class="tama-container">
-    <img src="{% static 'images/splash.svg' %}" alt="The Tamagotchi Collector Tamagotchi" />
+    <img 
+      style="position: relative; right:350px; bottom:75px;"
+      src="{% static 'images/splash.png' %}" alt="The Tamagotchi Collector Tamagotchi" 
+    />
   </div>
-  <img 
-    src="{% static 'images/logotype.svg' %}" 
-    alt="Text reads: Tamagotchi Collector"
-  />
 </section>
 
 {% if not user.is_authenticated %}
